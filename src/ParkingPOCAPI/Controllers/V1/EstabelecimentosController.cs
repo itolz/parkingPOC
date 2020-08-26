@@ -10,7 +10,7 @@ using ParkingPOCAPI.Data;
 
 namespace ParkingPOCAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/V1/[controller]")]
     [ApiController]
     public class EstabelecimentosController : ControllerBase
     {
