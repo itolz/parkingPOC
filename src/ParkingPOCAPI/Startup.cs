@@ -14,6 +14,9 @@ using Microsoft.EntityFrameworkCore;
 //using ParkingPOCAPI.Data;
 using ParkingPOC.Infra;
 using ParkingPOC.Services.Interfaces;
+using Services.Interfaces;
+using ParkingPOC.Services.Models;
+using ParkingPOC.Services.Services;
 
 namespace ParkingPOCAPI
 {
@@ -31,7 +34,11 @@ namespace ParkingPOCAPI
         {
             services.AddControllers();
 
-            services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
+            services.AddScoped<IGenericRepository<Estabelecimento>, GenericRepository<Estabelecimento>>(); 
+            services.AddScoped<IGenericRepository<Veiculo>, GenericRepository<Veiculo>>();
+
+            services.AddScoped<IEstabelecimentoService, EstabelecimentoService>(); 
+            services.AddScoped<IVeiculoService, VeiculoService>();
 
             services.AddDbContext<ParkingPOCAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ParkingPOCAPIContext")));

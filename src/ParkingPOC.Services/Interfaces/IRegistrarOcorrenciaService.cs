@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ParkingPOC.Services.Interfaces
 {
-    public interface IRegistrarOcorrencia
+    public interface IRegistrarOcorrenciaService
     {
         public Estabelecimento Executar(Ocorrencia ocorrencia);
     }

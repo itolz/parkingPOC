@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ParkingPOC.Services.Services
 {
-    public class RegistrarOcorrencia : IRegistrarOcorrencia
+    public class RegistrarOcorrenciaService : IRegistrarOcorrenciaService
     {
 
         public Estabelecimento Executar(Ocorrencia ocorrencia)
