@@ -11,7 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using ParkingPOCAPI.Data;
+//using ParkingPOCAPI.Data;
+using ParkingPOC.Infra;
+using ParkingPOC.Services.Interfaces;
 
 namespace ParkingPOCAPI
 {
@@ -28,6 +30,8 @@ namespace ParkingPOCAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
 
             services.AddDbContext<ParkingPOCAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ParkingPOCAPIContext")));

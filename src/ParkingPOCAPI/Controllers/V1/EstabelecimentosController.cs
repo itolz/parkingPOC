@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ParkingPOC.Services.Interfaces;
 using ParkingPOC.Services.Models;
 using ParkingPOCAPI.Data;
 
@@ -14,37 +15,35 @@ namespace ParkingPOCAPI.Controllers
     [ApiController]
     public class EstabelecimentosController : ControllerBase
     {
-        private readonly ParkingPOCAPIContext _context;
+        private readonly IEstabelecimentoRepository _estabelecimentoRepository;
 
-        public EstabelecimentosController(ParkingPOCAPIContext context)
+        public EstabelecimentosController(IEstabelecimentoRepository estabelecimentoRepository)
         {
-            _context = context;
+            _estabelecimentoRepository = estabelecimentoRepository;
         }
 
-        // GET: api/Estabelecimentos
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Estabelecimento>>> GetEstabelecimento()
         {
-            return await _context.Estabelecimento.ToListAsync();
+            return  Ok( await _estabelecimentoRepository.Listar());
         }
 
-        // GET: api/Estabelecimentos/5
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Estabelecimento>> GetEstabelecimento(Guid id)
         {
-            var estabelecimento = await _context.Estabelecimento.FindAsync(id);
+            var estabelecimento = await _estabelecimentoRepository.Selecionar(id);
 
             if (estabelecimento == null)
             {
                 return NotFound();
             }
 
-            return estabelecimento;
+            return Ok(estabelecimento);
         }
 
-        // PUT: api/Estabelecimentos/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEstabelecimento(Guid id, Estabelecimento estabelecimento)
         {
@@ -53,15 +52,13 @@ namespace ParkingPOCAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(estabelecimento).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _estabelecimentoRepository.Atualizar(id, estabelecimento);
             }
-            catch (DbUpdateConcurrencyException)
+            catch
             {
-                if (!EstabelecimentoExists(id))
+                if (!_estabelecimentoRepository.EstabelecimentoExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +71,34 @@ namespace ParkingPOCAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Estabelecimentos
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
         [HttpPost]
         public async Task<ActionResult<Estabelecimento>> PostEstabelecimento(Estabelecimento estabelecimento)
         {
-            _context.Estabelecimento.Add(estabelecimento);
-            await _context.SaveChangesAsync();
+            await _estabelecimentoRepository.Incluir(estabelecimento);
 
             return CreatedAtAction("GetEstabelecimento", new { id = estabelecimento.Id }, estabelecimento);
         }
 
-        // DELETE: api/Estabelecimentos/5
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult<Estabelecimento>> DeleteEstabelecimento(Guid id)
         {
-            var estabelecimento = await _context.Estabelecimento.FindAsync(id);
+
+            var estabelecimentoTask = _estabelecimentoRepository.Selecionar(id);
+
+            var estabelecimento = await estabelecimentoTask;
+
+
             if (estabelecimento == null)
             {
                 return NotFound();
             }
 
-            _context.Estabelecimento.Remove(estabelecimento);
-            await _context.SaveChangesAsync();
+            await _estabelecimentoRepository.Delete(estabelecimento);
 
             return estabelecimento;
         }
 
-        private bool EstabelecimentoExists(Guid id)
-        {
-            return _context.Estabelecimento.Any(e => e.Id == id);
-        }
     }
 }

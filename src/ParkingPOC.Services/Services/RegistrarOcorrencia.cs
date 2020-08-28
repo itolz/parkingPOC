@@ -8,6 +8,7 @@ namespace ParkingPOC.Services.Services
 {
     public class RegistrarOcorrencia : IRegistrarOcorrencia
     {
+
         public Estabelecimento Executar(Ocorrencia ocorrencia)
         {
             throw new NotImplementedException();
