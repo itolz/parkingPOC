@@ -11,8 +11,9 @@ namespace ParkingPOC.Test
     public class RegistroOcorrenciaTest
     {
         [Theory]
-        [InlineData(1)]
-        public void SaidaAutomovel(int posicoesVagasCarros)
+        [InlineData(1, "Esta operação deveria ter permitido o estacionamento de um carro!")]
+        [InlineData(0, "O Estacionamento de carros está lotado. Nenhuma ocorrencia deveria retornar com sucesso!")]
+        public void SaidaAutomovel(int posicoesVagasCarros, string errorMessage)
         {
 
             var idEstabelecimento = Guid.NewGuid();
@@ -38,10 +39,11 @@ namespace ParkingPOC.Test
             var ocorrencia = new Ocorrencia { EstabelecimentoId = idEstabelecimento, Movimento = TipoMovimento.entrada, VeiculoId = idVeiculo };
 
 
-            var estabelecimentoAtualizado = EstabelecimentoService.Executar(ocorrencia);
+            var resultadoOcorrencia = EstabelecimentoService.Executar(ocorrencia);
 
 
-            Assert.Equal(posicoesVagasCarros - 1, estabelecimentoAtualizado.PosicoesVagasCarros);
+            Assert.Equal(posicoesVagasCarros - 1, resultadoOcorrencia.PosicoesVagasCarrosAtualizada);
+            Assert.True(resultadoOcorrencia.Status == OcorrenciaStatus.VeiculoEstacionadoComSucesso, errorMessage);
         }
     }
 }

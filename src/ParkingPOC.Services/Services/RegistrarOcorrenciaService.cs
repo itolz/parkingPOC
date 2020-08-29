@@ -14,7 +14,7 @@ namespace ParkingPOC.Services.Services
         {
             _estabelecimentoRepository = estabelecimentoRepository;
         }
-        public OcorrenciaStatus Executar(Ocorrencia ocorrencia)
+        public OcorrenciaResultado Executar(Ocorrencia ocorrencia)
         {
             throw new NotImplementedException();
         }

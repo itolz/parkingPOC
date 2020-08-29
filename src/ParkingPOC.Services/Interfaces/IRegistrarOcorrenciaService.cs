@@ -7,6 +7,6 @@ namespace ParkingPOC.Services.Interfaces
 {
     public interface IRegistrarOcorrenciaService
     {
-        public OcorrenciaStatus Executar(Ocorrencia ocorrencia);
+        public OcorrenciaResultado Executar(Ocorrencia ocorrencia);
     }
 }
