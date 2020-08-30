@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParkingPOC.Services.Interfaces;
 using ParkingPOC.Services.Models;
 using System;
@@ -20,12 +21,14 @@ namespace ParkingPOCAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Veiculo>>> GetVeiculo()
         {
             return Ok(await _veiculoService.Listar());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Veiculo>> GetVeiculo(Guid id)
         {
             var veiculo = await _veiculoService.Selecionar(id);
@@ -40,6 +43,7 @@ namespace ParkingPOCAPI.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutVeiculo(Guid id, Veiculo veiculo)
         {
             if (id != veiculo.Id) return BadRequest();
@@ -53,6 +57,7 @@ namespace ParkingPOCAPI.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Veiculo>> PostVeiculo(Veiculo veiculo)
         {
             await _veiculoService.Incluir(veiculo);
@@ -62,6 +67,7 @@ namespace ParkingPOCAPI.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Veiculo>> DeleteVeiculo(Guid id)
         {
             var veiculo = await _veiculoService.Selecionar(id);

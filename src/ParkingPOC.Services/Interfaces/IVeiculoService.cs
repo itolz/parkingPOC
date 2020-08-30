@@ -8,11 +8,11 @@ namespace ParkingPOC.Services.Interfaces
 {
     public interface IVeiculoService
     {
-        public Task<Veiculo> Atualizar(object id, Veiculo Estabelecimento);
+        public Task<Veiculo> Atualizar(object id, Veiculo veiculo);
 
-        public Task<Veiculo> Delete(Veiculo estabelecimento);
+        public Task<Veiculo> Delete(Veiculo veiculo);
 
-        public Task<Veiculo> Incluir(Veiculo estabelecimento);
+        public Task<Veiculo> Incluir(Veiculo veiculo);
 
         public Task<IEnumerable<Veiculo>> Listar();
 

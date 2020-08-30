@@ -13,6 +13,7 @@ namespace ParkingPOC.Infra
         public DbSet<ParkingPOC.Services.Models.Estabelecimento> Estabelecimento { get; set; }
         public DbSet<ParkingPOC.Services.Models.Veiculo> Veiculo { get; set; }
         public DbSet<ParkingPOC.Services.Models.Ocorrencia> Ocorrencia { get; set; }
+        public DbSet<ParkingPOC.Services.Models.Usuario> Usuario { get; set; }
 
 
     }

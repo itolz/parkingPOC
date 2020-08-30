@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParkingPOC.Services.Interfaces;
 using ParkingPOC.Services.Models;
@@ -21,6 +22,7 @@ namespace ParkingPOC.API.Controllers.V1
         }
 
         [HttpPost]
+        [Authorize]
         public  ActionResult<OcorrenciaResultado> Post([FromBody] Ocorrencia ocorrencia)
         {
            var ocorrenciaResultado =  _operarVagaService.Executar(ocorrencia);
