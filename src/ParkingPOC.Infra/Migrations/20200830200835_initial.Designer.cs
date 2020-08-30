@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ParkingPOCAPI.Data;
+using ParkingPOC.Infra;
 
-namespace ParkingPOCAPI.Migrations
+namespace ParkingPOC.Infra.Migrations
 {
     [DbContext(typeof(ParkingPOCAPIContext))]
-    [Migration("20200826170519_initial")]
+    [Migration("20200830200835_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,26 @@ namespace ParkingPOCAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Estabelecimento");
+                });
+
+            modelBuilder.Entity("ParkingPOC.Services.Models.Ocorrencia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EstabelecimentoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Movimento")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("VeiculoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ocorrencia");
                 });
 
             modelBuilder.Entity("ParkingPOC.Services.Models.Veiculo", b =>

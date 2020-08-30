@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using ParkingPOC.Services.Interfaces;
 using ParkingPOC.Services.Models;
-using ParkingPOCAPI.Data;
-using Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ParkingPOCAPI.Controllers
 {
@@ -49,7 +44,7 @@ namespace ParkingPOCAPI.Controllers
         public async Task<IActionResult> PutEstabelecimento(Guid id, Estabelecimento estabelecimento)
         {
             if (id != estabelecimento.Id) return BadRequest();
-           
+
             var estabelecimentoReturned = await _estabelecimentoService.Atualizar(id, estabelecimento);
 
             if (estabelecimentoReturned == null) return NotFound();
@@ -73,7 +68,7 @@ namespace ParkingPOCAPI.Controllers
             var estabelecimento = await _estabelecimentoService.Selecionar(id);
 
             if (estabelecimento == null) return NotFound();
-          
+
             await _estabelecimentoService.Delete(estabelecimento);
 
             return estabelecimento;

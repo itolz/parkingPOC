@@ -9,43 +9,48 @@ namespace ParkingPOC.Services.Services
     {
         IVeiculoService _veiculoService;
         IEstabelecimentoService _estabelecimentoService;
-        public OperarVagasService(IVeiculoService veiculoService, IEstabelecimentoService estabelecimentoService)
+        IIncluirOcorrenciaService _incluirOcorrrenciaService;
+        public OperarVagasService(  IVeiculoService veiculoService, 
+                                    IEstabelecimentoService estabelecimentoService, 
+                                    IIncluirOcorrenciaService incluirOcorrenciaService)
         {
             _veiculoService = veiculoService;
             _estabelecimentoService = estabelecimentoService;
+            _incluirOcorrrenciaService = incluirOcorrenciaService;
+
         }
 
 
-        public async Task<OcorrenciaResultado> Executar(Ocorrencia ocorrencia)
+        public OcorrenciaResultado Executar(Ocorrencia ocorrencia)
         {
             OcorrenciaResultado resultado = new OcorrenciaResultado();
             resultado.EstabelecimentoId = ocorrencia.EstabelecimentoId;
 
-            var veiculo = await _veiculoService.Selecionar(ocorrencia.VeiculoId);
+            var veiculo = _veiculoService.Selecionar(ocorrencia.VeiculoId).Result;
 
             if (veiculo == null)
                 resultado.Status = OcorrenciaStatus.VeiculoNaoCadastrado;
             else
             {
-                var estabelecimento = await _estabelecimentoService.Selecionar(ocorrencia.EstabelecimentoId);
+                var estabelecimento = _estabelecimentoService.Selecionar(ocorrencia.EstabelecimentoId).Result;
 
                 switch (veiculo.Tipo)
                 {
                     case VeiculoTipo.Carro:
                         if (ocorrencia.Movimento == TipoMovimento.entrada)
-                            EstacionarCarro(resultado, estabelecimento);
+                          EstacionarCarro(resultado, estabelecimento, ocorrencia);
                         else 
-                            LiberarCarro(resultado, estabelecimento);
+                            LiberarCarro(resultado, estabelecimento, ocorrencia);
                         break;
-                    default:
+                    case VeiculoTipo.Moto:
                         if (ocorrencia.Movimento == TipoMovimento.entrada)
-                            EstacionarMoto(resultado, estabelecimento);
+                           EstacionarMoto(resultado, estabelecimento, ocorrencia);
                         else
-                            LiberarMoto(resultado, estabelecimento);
+                            LiberarMoto(resultado, estabelecimento, ocorrencia);
                         break;
                 }
 
-                await _estabelecimentoService.Atualizar(ocorrencia.EstabelecimentoId, estabelecimento);
+                _estabelecimentoService.Atualizar(ocorrencia.EstabelecimentoId, estabelecimento);
 
                 resultado.PosicoesVagasCarrosAtualizada = estabelecimento.PosicoesVagasCarros;
                 resultado.PosicoesVagasMotosAtualizada = estabelecimento.PosicoesVagasMotos;
@@ -54,40 +59,48 @@ namespace ParkingPOC.Services.Services
             return resultado;
         }
 
-        private void EstacionarMoto(OcorrenciaResultado resultado, Estabelecimento estabelecimento)
+        private void EstacionarMoto(OcorrenciaResultado resultado, Estabelecimento estabelecimento, Ocorrencia ocorrencia)
         {
             if (estabelecimento.PosicoesVagasMotos > 0)
             {
                 resultado.Status = OcorrenciaStatus.VeiculoEstacionadoComSucesso;
                 estabelecimento.PosicoesVagasMotos--;
+                _incluirOcorrrenciaService.Executar(ocorrencia);
             }
 
             else
                 resultado.Status = OcorrenciaStatus.EstacionamentoLotado;
+
         }
 
-        private void LiberarMoto(OcorrenciaResultado resultado, Estabelecimento estabelecimento)
+        private void LiberarMoto(OcorrenciaResultado resultado, Estabelecimento estabelecimento, Ocorrencia ocorrencia)
         {
             resultado.Status = OcorrenciaStatus.VeiculoLiberado;
             estabelecimento.PosicoesVagasMotos++;
+            _incluirOcorrrenciaService.Executar(ocorrencia);
+
         }
 
-        private void LiberarCarro(OcorrenciaResultado resultado, Estabelecimento estabelecimento)
+        private void LiberarCarro(OcorrenciaResultado resultado, Estabelecimento estabelecimento, Ocorrencia ocorrencia)
         {
             resultado.Status = OcorrenciaStatus.VeiculoLiberado;
             estabelecimento.PosicoesVagasCarros++;
+            _incluirOcorrrenciaService.Executar(ocorrencia);
+
         }
 
-        private void EstacionarCarro(OcorrenciaResultado resultado, Estabelecimento estabelecimento)
+        private void EstacionarCarro(OcorrenciaResultado resultado, Estabelecimento estabelecimento, Ocorrencia ocorrencia)
         {
             if (estabelecimento.PosicoesVagasCarros > 0)
             {
                 resultado.Status = OcorrenciaStatus.VeiculoEstacionadoComSucesso;
                 estabelecimento.PosicoesVagasCarros--;
+                 _incluirOcorrrenciaService.Executar(ocorrencia);
             }
 
             else
                 resultado.Status = OcorrenciaStatus.EstacionamentoLotado;
+
         }
 
     }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using ParkingPOC.Services.Interfaces;
 using ParkingPOC.Services.Models;
-using ParkingPOCAPI.Data;
-using Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ParkingPOCAPI.Controllers
 {
@@ -43,7 +38,7 @@ namespace ParkingPOCAPI.Controllers
             return Ok(veiculo);
         }
 
-       
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVeiculo(Guid id, Veiculo veiculo)
         {
@@ -65,7 +60,7 @@ namespace ParkingPOCAPI.Controllers
             return CreatedAtAction("GetVeiculo", new { id = veiculo.Id }, veiculo);
         }
 
-        
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<Veiculo>> DeleteVeiculo(Guid id)
         {

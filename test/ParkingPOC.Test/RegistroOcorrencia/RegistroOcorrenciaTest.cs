@@ -6,6 +6,7 @@ using ParkingPOC.Services.Models;
 using System.Threading.Tasks;
 using ParkingPOC.Services.Services;
 using ParkingPOC.Services.Interfaces;
+using ParkingPOC.Test.RegistroOcorrencia;
 
 namespace ParkingPOC.Test
 {
@@ -44,14 +45,15 @@ namespace ParkingPOC.Test
             var veiculoRepo = new Mock<IGenericRepository<Veiculo>>();
             veiculoRepo.Setup(x => x.Selecionar(veiculoCarro.Id)).Returns(Task.FromResult(veiculoCarro));
 
+            IIncluirOcorrenciaService ocorrenciaService = new IncluirOcorrenciaTest(); 
             IVeiculoService veiculoService = new VeiculoService(veiculoRepo.Object);
             IEstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabecimentoRepo.Object);
-            IOperarVagasService OperarVagas = new OperarVagasService(veiculoService, estabelecimentoService);
+            IOperarVagasService OperarVagas = new OperarVagasService(veiculoService, estabelecimentoService, ocorrenciaService);
 
 
             var ocorrencia = new Ocorrencia { EstabelecimentoId = estabelecimento.Id, Movimento = TipoMovimento.entrada, VeiculoId = veiculoCarro.Id };
 
-            var resultadoOcorrencia = OperarVagas.Executar(ocorrencia).Result;
+            var resultadoOcorrencia = OperarVagas.Executar(ocorrencia);
 
             int posicoesVagaCarrosAguardada = (posicoesVagasCarros - 1 > 0) ? posicoesVagasCarros - 1 : 0; 
 
@@ -95,12 +97,13 @@ namespace ParkingPOC.Test
 
             IVeiculoService veiculoService = new VeiculoService(veiculoRepo.Object);
             IEstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabecimentoRepo.Object);
-            IOperarVagasService OperarVagas = new OperarVagasService(veiculoService, estabelecimentoService);
+            IIncluirOcorrenciaService ocorrenciaService = new IncluirOcorrenciaTest();
+            IOperarVagasService OperarVagas = new OperarVagasService(veiculoService, estabelecimentoService, ocorrenciaService);
 
 
             var ocorrencia = new Ocorrencia { EstabelecimentoId = estabelecimento.Id, Movimento = TipoMovimento.entrada, VeiculoId = veiculoMoto.Id };
 
-            var resultadoOcorrencia = OperarVagas.Executar(ocorrencia).Result;
+            var resultadoOcorrencia = OperarVagas.Executar(ocorrencia);
 
             int posicoesVagaMotosAguardada = (posicoesVagasMotos - 1 > 0) ? posicoesVagasMotos - 1 : 0;
 
@@ -144,11 +147,12 @@ namespace ParkingPOC.Test
 
             IVeiculoService veiculoService = new VeiculoService(veiculoRepo.Object);
             IEstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabecimentoRepo.Object);
-            IOperarVagasService operarVagas = new OperarVagasService(veiculoService, estabelecimentoService);
+            IIncluirOcorrenciaService ocorrenciaService = new IncluirOcorrenciaTest();
+            IOperarVagasService operarVagas = new OperarVagasService(veiculoService, estabelecimentoService, ocorrenciaService);
 
             var ocorrencia = new Ocorrencia { EstabelecimentoId = estabelecimento.Id, Movimento = TipoMovimento.saida, VeiculoId = veiculoCarro.Id };
 
-            var resultadoOcorrencia = operarVagas.Executar(ocorrencia).Result;
+            var resultadoOcorrencia = operarVagas.Executar(ocorrencia);
 
             Assert.Equal(1, resultadoOcorrencia.PosicoesVagasCarrosAtualizada);
             Assert.True(resultadoOcorrencia.Status == OcorrenciaStatus.VeiculoLiberado, "Uma vaga de carro deveria ter sido liberada");
@@ -189,13 +193,15 @@ namespace ParkingPOC.Test
 
             IVeiculoService veiculoService = new VeiculoService(veiculoRepo.Object);
             IEstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabecimentoRepo.Object);
-            IOperarVagasService OperarVagas = new OperarVagasService(veiculoService, estabelecimentoService);
+            IIncluirOcorrenciaService ocorrenciaService = new IncluirOcorrenciaTest();
+
+            IOperarVagasService OperarVagas = new OperarVagasService(veiculoService, estabelecimentoService, ocorrenciaService);
 
 
             var ocorrencia = new Ocorrencia { EstabelecimentoId = estabelecimento.Id, Movimento = TipoMovimento.saida, VeiculoId = veiculoMoto.Id };
 
 
-            var resultadoOcorrencia = OperarVagas.Executar(ocorrencia).Result;
+            var resultadoOcorrencia = OperarVagas.Executar(ocorrencia);
 
             Assert.Equal(1, resultadoOcorrencia.PosicoesVagasMotosAtualizada);
             Assert.True(resultadoOcorrencia.Status == OcorrenciaStatus.VeiculoLiberado, "Uma vaga de carro deveria ter sido liberada");

@@ -17,7 +17,7 @@ namespace ParkingPOC.Services.Models
         public Guid VeiculoId { get; set; }
 
         [Required(ErrorMessage = "TipoMovimento deve ser informado! (0:entrada; 1: saida;)")]
-        public TipoMovimento Movimento { get; set; }
+        public TipoMovimento Movimento { get; set; }  
 
     }
 }

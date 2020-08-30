@@ -17,6 +17,7 @@ using ParkingPOC.Services.Interfaces;
 using Services.Interfaces;
 using ParkingPOC.Services.Models;
 using ParkingPOC.Services.Services;
+using ParkingPOC.Services.Interfaces.Repository;
 
 namespace ParkingPOCAPI
 {
@@ -36,13 +37,15 @@ namespace ParkingPOCAPI
 
             services.AddScoped<IGenericRepository<Estabelecimento>, GenericRepository<Estabelecimento>>(); 
             services.AddScoped<IGenericRepository<Veiculo>, GenericRepository<Veiculo>>();
+            services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>(); 
 
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>(); 
             services.AddScoped<IVeiculoService, VeiculoService>();
-            services.AddScoped<IOperarVagasService, OperarVagasService>(); 
+            services.AddScoped<IOperarVagasService, OperarVagasService>();
+            services.AddScoped<IIncluirOcorrenciaService, IncluirOcorrenciaService>();
 
             services.AddDbContext<ParkingPOCAPIContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ParkingPOCAPIContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("ParkingPOCAPIContext"), x => x.MigrationsAssembly("ParkingPOC.Infra")), ServiceLifetime.Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

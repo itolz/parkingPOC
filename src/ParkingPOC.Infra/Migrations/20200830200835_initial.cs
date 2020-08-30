@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ParkingPOCAPI.Migrations
+namespace ParkingPOC.Infra.Migrations
 {
     public partial class initial : Migration
     {
@@ -25,6 +25,20 @@ namespace ParkingPOCAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ocorrencia",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    EstabelecimentoId = table.Column<Guid>(nullable: false),
+                    VeiculoId = table.Column<Guid>(nullable: false),
+                    Movimento = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ocorrencia", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Veiculo",
                 columns: table => new
                 {
@@ -45,6 +59,9 @@ namespace ParkingPOCAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Estabelecimento");
+
+            migrationBuilder.DropTable(
+                name: "Ocorrencia");
 
             migrationBuilder.DropTable(
                 name: "Veiculo");
