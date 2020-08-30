@@ -39,6 +39,7 @@ namespace ParkingPOCAPI
 
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>(); 
             services.AddScoped<IVeiculoService, VeiculoService>();
+            services.AddScoped<IOperarVagasService, OperarVagasService>(); 
 
             services.AddDbContext<ParkingPOCAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ParkingPOCAPIContext")));

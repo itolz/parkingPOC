@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ParkingPOC.Services.Interfaces
 {
-    public interface IRegistrarOcorrenciaService
+    public interface IOperarVagasService
     {
-        public OcorrenciaResultado Executar(Ocorrencia ocorrencia);
+        public Task<OcorrenciaResultado> Executar(Ocorrencia ocorrencia); 
     }
 }

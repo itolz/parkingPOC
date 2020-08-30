@@ -7,7 +7,9 @@ namespace ParkingPOC.Services.Models
     public enum OcorrenciaStatus
     {
         VeiculoEstacionadoComSucesso, 
+        VeiculoLiberado,
         EstacionamentoLotado,
+        VeiculoNaoCadastrado,
         ErroDesconhecido
     }
 }
