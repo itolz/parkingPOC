@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "ad149505-986f-462c-b360-1807a3c1aff0",
+		"name": "ParkingPOC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ListEstabelecimentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44311/api/v1/estabelecimentos",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"estabelecimentos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Relatorio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44311/api/v1/estabelecimentos",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"estabelecimentos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incluir Estabelecimento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"Nome\":\"RedePar\", \"CNPJ\":\"57.856.583/0001-74\", \"Endereco\": \"Avenida Ana Costa, 259, Santos\", \"Telefone\": \"(13) 252-2567\", \"PosicoesVagasMotos\": \"5\", \"PosicoesVagasCarros\": \"3\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/estabelecimentos",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"estabelecimentos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incluir Veiculo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"Marca\":\"Nissan\", \"Modelo\":\"Livina X-Gear\", \"Cor\": \"Branca\", \"Placa\": \"FTY1183\", \"Tipo\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/veiculos",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"veiculos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IncluirCarroNoEstacionamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"EstabelecimentoId\":\"4FB6C9C4-9CFC-480D-6FF0-08D84D215035\", \"VeiculoId\":\"8F92CD13-C7AF-4A98-A606-08D84D220A72\", \"Movimento\":0}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/OperacoesVaga",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"OperacoesVaga"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetirarCarroDoEstacionamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"EstabelecimentoId\":\"4FB6C9C4-9CFC-480D-6FF0-08D84D215035\", \"VeiculoId\":\"8F92CD13-C7AF-4A98-A606-08D84D220A72\", \"Movimento\":1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/OperacoesVaga",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"OperacoesVaga"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetirarMotoDoEstacionamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"EstabelecimentoId\":\"4FB6C9C4-9CFC-480D-6FF0-08D84D215035\", \"VeiculoId\":\"F1A3BFC1-5580-4CBC-A607-08D84D220A72\", \"Movimento\":1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/OperacoesVaga",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"OperacoesVaga"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IncluirMotoNoEstacionamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"EstabelecimentoId\":\"4FB6C9C4-9CFC-480D-6FF0-08D84D215035\", \"VeiculoId\":\"F1A3BFC1-5580-4CBC-A607-08D84D220A72\", \"Movimento\":0}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/OperacoesVaga",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"OperacoesVaga"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IncluirUsuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"Nome\":\"usuarioZero\", \"Login\":\"usuario0\", \"Password\":\"my@password\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/Usuarios",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"Usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"Usuario\":\"usuario0\", \"Password\":\"my@password\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44311/api/v1/Usuarios/Login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44311",
+					"path": [
+						"api",
+						"v1",
+						"Usuarios",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
