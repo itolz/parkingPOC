@@ -18,7 +18,7 @@
 1. Abrir a Solution e realizar o build
 2. Rodar os Testes Unitários a fim de verificar o comportamento da aplicação (Test Explorer)
 3. Ajustar as credenciais de acesso ao database desejado em appsettings
-4. através do Package Console Manager, rodar o comando Update-Database
+4. através do Package Console Manager, e a partir do projeto Infra\ParkingPOC.Infra, rodar o comando Update-Database
 5. Rodar o projeto
 6. Utilize uma ferramenta para consumir api´s (como o Postman) e adicione um usuario.
     Ex.:
