@@ -16,7 +16,7 @@ namespace ParkingPOC.API.Controllers.V1
         [AllowAnonymous]
         public ActionResult<string> Report()
         {
-            return Ok("readme");
+            return Ok(string.Concat("ParkingPOC - Prova de Conceito", Environment.NewLine, "Acesse o README para mais info em https://github.com/itolz/parkingPOC/blob/master/README.md", Environment.NewLine, "Italo Vinicios (italovinicios@gmail.com)"));
         }
     }
 }
