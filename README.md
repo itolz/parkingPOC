@@ -23,7 +23,7 @@
 6. Utilize uma ferramenta para consumir api´s (como o Postman) e adicione um usuario.
     Ex.:
     url: https://localhost:44311/api/v1/Usuarios (POST)
-    {"Nome":"usuarioZero", "Usuario":"usuario0", "Password":"my@password"}
+    {"Nome":"usuarioZero", "Login":"usuario0", "Password":"my@password"}
 
 7. Realizar o login, com o objetivo de capturar o bearer token para utilização nos demais Requests
     url: https://localhost:44311/api/v1/Usuarios/Login (POST)
@@ -35,7 +35,7 @@
     { "Nome":"RedePar", "CNPJ":"57.856.583/0001-74", "Endereco": "Avenida Ana Costa, 259, Santos", "Telefone": "13 2522-3567", "PosicoesVagasMotos": 2, "PosicoesVagasCarros": 3}
 10. Incluir um ou mais veículos
     url: https://localhost:44311/api/v1/veiculos (POST)
-    { "Marca":"Honda", "Modelo":"Elite 125", "Cor": "Vermelha", "Placa": "CGI2500", "Tipo": 2}
+    { "Marca":"Nissan", "Modelo":"Livina X-Gear", "Cor": "Branca", "Placa": "FTY1183", "Tipo": 1}
     { "Marca":"Honda", "Modelo":"Elite 125", "Cor": "Vermelha", "Placa": "CGI2500", "Tipo": 0}
 11. Incluir um carro em um estacionamento.
     url: https://localhost:44311/api/v1/veiculos (POST)
