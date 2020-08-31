@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ParkingPOC.Services.Interfaces;
 using ParkingPOC.Services.Models;
-using ParkingPOC.Services.Services;
-using System.Linq; 
+using System.Linq;
 
 namespace ParkingPOC.API.Controllers.V1
 {
@@ -25,7 +19,7 @@ namespace ParkingPOC.API.Controllers.V1
         {
             _tokenService = tokenService;
             _passwordHasher = passwordHasher;
-            _usuarioService = usuarioService; 
+            _usuarioService = usuarioService;
         }
 
         [HttpPost("Login")]
@@ -42,7 +36,7 @@ namespace ParkingPOC.API.Controllers.V1
 
             var token = _tokenService.Executar();
 
-            return Ok(token); 
+            return Ok(token);
 
         }
 
@@ -56,7 +50,7 @@ namespace ParkingPOC.API.Controllers.V1
 
             usuario.Password = passwordHash;
 
-            _usuarioService.Incluir(usuario); 
+            _usuarioService.Incluir(usuario);
 
             return Ok();
         }

@@ -29,5 +29,15 @@ namespace ParkingPOC.API.Controllers.V1
 
             return Ok(ocorrenciaResultado);
         }
+
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult<OcorrenciaResultado> Report([FromBody] Ocorrencia ocorrencia)
+        {
+            var ocorrenciaResultado = _operarVagaService.Executar(ocorrencia);
+
+            return Ok(ocorrenciaResultado);
+        }
     }
 }

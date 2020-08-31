@@ -41,6 +41,7 @@ namespace ParkingPOCAPI
             services.AddScoped<IOperarVagasService, OperarVagasService>();
             services.AddScoped<IIncluirOcorrenciaService, IncluirOcorrenciaService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IRelatorioService, RelatorioService>(); 
 
             services.AddSingleton<ITokenService, TokenService>();
             services.AddSingleton<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>(); 

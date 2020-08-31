@@ -10,6 +10,6 @@ namespace ParkingPOC.Services.Interfaces.Repository
     {
         public void Incluir(Ocorrencia ocorrencia);
 
-        public Task<List<EstabelecimentoReport>> Listar();
+        public Task<IEnumerable<EstabelecimentoReport>> Listar();
     }
 }
