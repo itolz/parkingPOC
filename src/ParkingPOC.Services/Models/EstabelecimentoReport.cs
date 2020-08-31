@@ -16,7 +16,7 @@ namespace ParkingPOC.Services.Models
         public int QuantidadeEntradaVeiculos { get; set; }
         
         [Display(Name = "Quantidade de Saída de Veículos")]
-        public int QuantidadeSaídaVeiculos { get; set; }
+        public int QuantidadeSaidaVeiculos { get; set; }
 
 
     }
